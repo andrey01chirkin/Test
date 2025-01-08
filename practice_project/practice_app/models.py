@@ -1,43 +1,50 @@
-from datetime import date
 from django.db import models
+from django.core.validators import MinValueValidator
+from django.urls import reverse
 
-# Task 1
+
+# Товар для нашей витрины
 class Product(models.Model):
-    name = models.CharField(max_length=50)
-    price = models.FloatField(default=0.0)
-    discount = models.FloatField(default=0.0)
-    created_at = models.DateField(auto_now_add=True, null=True)
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+    )
+    description = models.TextField()
+    quantity = models.IntegerField(
+        validators=[MinValueValidator(0)],
+    )
+    category = models.ForeignKey(
+        to='Category',
+        on_delete=models.CASCADE,
+        related_name='products',
+    )
+    price = models.FloatField(
+        validators=[MinValueValidator(0.0)],
+    )
 
-    @property
-    def final_price(self):
-        return self.price * (100 - self.discount)/100
+    def __str__(self):
+        return f'{self.name.title()}: {self.description[:10]}'
 
-    def apply_discount(self, amount):
-        self.discount = amount
-        self.save()
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[str(self.id)])
 
 
-#Task 2
-class Author(models.Model):
+# Категория, к которой будет привязываться товар
+class Category(models.Model):
+    # названия категорий тоже не должны повторяться
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name.title()
+
+
+class Material(models.Model):
     name = models.CharField(max_length=100)
-    birth_date = models.DateField()
 
-    @property
-    def age(self):
-        today = date.today()
-        age = today.year - self.birth_date.year
+    def __str__(self):
+        return self.name
 
-        # Учитываем, наступил ли день рождения в текущем году
-        if today.month < self.birth_date.month or (today.month == self.birth_date.month and today.day < self.birth_date.day):
-            age -= 1
 
-        return age
-
-class Book(models.Model):
-    title = models.CharField(max_length=50)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="books")
-    pages = models.IntegerField()
-
-    def short_description(self):
-        return f"Название книги: {self.title}, автор: {self.author.name}"
-
+class ProductMaterial(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    material = models.ForeignKey(Material, on_delete=models.CASCADE)

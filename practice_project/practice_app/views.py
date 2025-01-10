@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -39,7 +40,7 @@ class ProductCreate(CreateView):
 
 
 # Добавляем представление для изменения товара.
-class ProductUpdate(UpdateView):
+class ProductUpdate(LoginRequiredMixin, UpdateView):
     form_class = ProductForm
     model = Product
     template_name = 'product_edit.html'

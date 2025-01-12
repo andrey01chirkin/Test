@@ -1,6 +1,7 @@
 from datetime import datetime
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives, mail_admins
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.views import View
 from practice_app.models import Appointment
 
@@ -17,13 +18,10 @@ class AppointmentView(View):
         )
         appointment.save()
 
-        # отправляем письмо
-        send_mail(
-            subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
-            # имя клиента и дата записи будут в теме для удобства
-            message=appointment.message,  # сообщение с кратким описанием проблемы
-            from_email='chirkin.extra@yandex.ru',  # здесь указываете почту, с которой будете отправлять (об этом попозже)
-            recipient_list=['chirkin.andrey377@gmail.com']  # здесь список получателей. Например, секретарь, сам врач и т. д.
+        # отправляем письмо всем админам по аналогии с send_mail, только здесь получателя указывать не надо
+        mail_admins(
+            subject=f'{appointment.client_name} {appointment.date.strftime("%d %m %Y")}',
+            message=appointment.message,
         )
 
         return redirect('/accounts/')

@@ -1,12 +1,17 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
 
 from .filters import ProductFilter
 from .forms import ProductForm
-from .models import Product
+from .models import Product, Appointment
 
 
 class ProductsList(ListView):
@@ -50,3 +55,5 @@ class ProductDelete(DeleteView):
     model = Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product_list')
+
+

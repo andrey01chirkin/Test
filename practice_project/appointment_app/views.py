@@ -3,12 +3,12 @@ from django.core.mail import send_mail, EmailMultiAlternatives, mail_admins
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.views import View
-from practice_app.models import Appointment
+from appointment_app.models import Appointment
 
 
 class AppointmentView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'make_appointment.html', {})
+        return render(request, 'appointment_app/make_appointment.html', {})
 
     def post(self, request, *args, **kwargs):
         appointment = Appointment(
@@ -18,10 +18,17 @@ class AppointmentView(View):
         )
         appointment.save()
 
+        html_content = render_to_string(
+            'appointment_created.html',
+            {
+                'appointment': appointment,
+            }
+        )
+
         # отправляем письмо всем админам по аналогии с send_mail, только здесь получателя указывать не надо
         mail_admins(
             subject=f'{appointment.client_name} {appointment.date.strftime("%d %m %Y")}',
             message=appointment.message,
         )
 
-        return redirect('/accounts/')
+        return redirect('appointment_view')

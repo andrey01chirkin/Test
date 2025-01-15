@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from unittest.mock import DEFAULT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,8 +52,10 @@ INSTALLED_APPS = [
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
 
-    'email_app',
+    'appointment_app',
 ]
+
+DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
 
 SITE_ID = 1
 
@@ -160,7 +163,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'sign_app.models.BasicSignupForm'}
 
@@ -172,7 +175,7 @@ EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
 ADMINS = [
-    ('Andrey377', 'chirkin.andrey377@gmail.com'),
-    # список всех админов в формате ('имя', 'их почта')
+    ('Chirkin', 'chirkin.andrey377@gmail.com')
 ]
-SERVER_EMAIL = 'chirkin.extra@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
+
+SERVER_EMAIL = 'chirkin.extra@yandex.ru'

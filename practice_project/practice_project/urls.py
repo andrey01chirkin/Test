@@ -7,5 +7,5 @@ urlpatterns = [
     path('sign/', include('sign_app.urls')),
     path('accounts/', include('allauth.urls')),
 
-    path('email/', include('email_app.urls')),
+    path('email/', include('appointment_app.urls')),
 ]

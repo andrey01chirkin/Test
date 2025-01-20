@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
 
-    'appointment_app',
+    'appointment_app.apps.AppointmentConfig',
 ]
 
 DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
@@ -168,14 +168,19 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {'signup': 'sign_app.models.BasicSignupForm'}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
-EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = 'chirkin.extra@yandex.ru'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'  # пароль от почты
-EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'chirkin.extra@yandex.ru'
+EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
+
+MANAGERS = [
+    ('Andrey', 'chirkin.extra@yandex.ru')
+]
 
 # ADMINS = [
 #     ('Chirkin', 'chirkin.andrey377@gmail.com')
 # ]
 #
-# SERVER_EMAIL = 'chirkin.extra@yandex.ru'
+SERVER_EMAIL = 'chirkin.extra@yandex.ru'

@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.core.mail import send_mail, EmailMultiAlternatives, mail_admins
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.views import View
@@ -17,18 +16,10 @@ class AppointmentView(View):
             message=request.POST['message'],
         )
         appointment.save()
-
-        html_content = render_to_string(
-            'appointment_created.html',
-            {
-                'appointment': appointment,
-            }
-        )
-
-        # отправляем письмо всем админам по аналогии с send_mail, только здесь получателя указывать не надо
-        mail_admins(
-            subject=f'{appointment.client_name} {appointment.date.strftime("%d %m %Y")}',
-            message=appointment.message,
-        )
-
+        # html_content = render_to_string(
+        #     'appointment_created.html',
+        #     {
+        #         'appointment': appointment,
+        #     }
+        # )
         return redirect('appointment_view')

@@ -174,8 +174,8 @@ EMAIL_HOST_USER = 'chirkin.extra@yandex.ru'  # ваше имя пользова�
 EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
-ADMINS = [
-    ('Chirkin', 'chirkin.andrey377@gmail.com')
-]
-
-SERVER_EMAIL = 'chirkin.extra@yandex.ru'
+# ADMINS = [
+#     ('Chirkin', 'chirkin.andrey377@gmail.com')
+# ]
+#
+# SERVER_EMAIL = 'chirkin.extra@yandex.ru'

@@ -6,3 +6,4 @@ class AppointmentConfig(AppConfig):
 
     def ready(self):
         import appointment_app.signals
+

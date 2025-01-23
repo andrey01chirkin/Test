@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
 ]
 
-DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
+DEFAULT_FROM_EMAIL = 'some_email@yandex.ru'
 
 SITE_ID = 1
 

@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from unittest.mock import DEFAULT
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -191,3 +193,13 @@ SERVER_EMAIL = 'chirkin.extra@yandex.ru'
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 # если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+load_dotenv()
+
+# celery
+
+CELERY_BROKER_URL = f'redis://:{os.getenv('redis_password')}@{os.getenv('redis_endpoint')}:{os.getenv('redis_port')}'
+CELERY_RESULT_BACKEND = f'redis://:{os.getenv('redis_password')}@{os.getenv('redis_endpoint')}:{os.getenv('redis_port')}'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

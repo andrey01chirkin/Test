@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'appointment_app.apps.AppointmentConfig',
 
     'django_apscheduler',
+    'celery_app',
 ]
 
 DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'

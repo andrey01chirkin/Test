@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
 ]
 
-DEFAULT_FROM_EMAIL = 'some_email@yandex.ru'
+DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
 
 SITE_ID = 1
 
@@ -174,16 +174,20 @@ ACCOUNT_FORMS = {'signup': 'sign_app.models.BasicSignupForm'}
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'some_email@yandex.ru'
-EMAIL_HOST_PASSWORD = 'some_password'
+EMAIL_HOST_USER = 'chirkin.extra@yandex.ru'
+EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'some_email@yandex.ru'
+DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
 
 MANAGERS = [
-    ('Andrey', 'some_email@yandex.ru')
+    ('Andrey', 'chirkin.extra@yandex.ru')
 ]
 
-SERVER_EMAIL = 'some_email@yandex.ru'
+# ADMINS = [
+#     ('Chirkin', 'chirkin.andrey377@gmail.com')
+# ]
+#
+SERVER_EMAIL = 'chirkin.extra@yandex.ru'
 
 # формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
@@ -193,7 +197,6 @@ APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 load_dotenv()
 
 # celery
-
 CELERY_BROKER_URL = f'redis://:{os.getenv('redis_password')}@{os.getenv('redis_endpoint')}:{os.getenv('redis_port')}'
 CELERY_RESULT_BACKEND = f'redis://:{os.getenv('redis_password')}@{os.getenv('redis_endpoint')}:{os.getenv('redis_port')}'
 CELERY_ACCEPT_CONTENT = ['application/json']

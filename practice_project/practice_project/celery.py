@@ -19,7 +19,7 @@ app.conf.broker_connection_retry_on_startup = False
 app.conf.beat_schedule = {
     'print_every_5_seconds': {
         'task': 'celery_app.tasks.printer',
-        'schedule': crontab(),
+        'schedule': 10,
         'args': (5,),
     },
 }

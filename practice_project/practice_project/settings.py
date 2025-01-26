@@ -60,7 +60,9 @@ INSTALLED_APPS = [
     'celery_app',
 ]
 
-DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
+load_dotenv()
+
+DEFAULT_FROM_EMAIL = os.getenv('email')
 
 SITE_ID = 1
 
@@ -172,30 +174,25 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'sign_app.models.BasicSignupForm'}
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'chirkin.extra@yandex.ru'
-EMAIL_HOST_PASSWORD = 'owrrysgzkbkdgsxz'
+EMAIL_HOST_USER = os.getenv('email')
+EMAIL_HOST_PASSWORD = os.getenv('email_password')
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'chirkin.extra@yandex.ru'
+DEFAULT_FROM_EMAIL = os.getenv('email')
 
 MANAGERS = [
-    ('Andrey', 'chirkin.extra@yandex.ru')
+    ('Andrey', os.getenv('email'))
 ]
 
-# ADMINS = [
-#     ('Chirkin', 'chirkin.andrey377@gmail.com')
-# ]
-#
-SERVER_EMAIL = 'chirkin.extra@yandex.ru'
+SERVER_EMAIL = os.getenv('email')
 
 # формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 # если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
-
-load_dotenv()
 
 # celery
 CELERY_BROKER_URL = f'redis://:{os.getenv('redis_password')}@{os.getenv('redis_endpoint')}:{os.getenv('redis_port')}'

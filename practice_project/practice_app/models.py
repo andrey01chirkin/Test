@@ -1,8 +1,6 @@
-from datetime import datetime
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.urls import reverse
-from django.utils import timezone
 
 
 # Товар для нашей витрины
@@ -50,6 +48,3 @@ class Material(models.Model):
 class ProductMaterial(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
-
-
-

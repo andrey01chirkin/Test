@@ -8,4 +8,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('email/', include('appointment_app.urls')),
     path('celery/', include('celery_app.urls')),
+    path('product/', include('practice_app.urls')),
 ]

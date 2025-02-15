@@ -6,7 +6,7 @@ from django.views.generic import (
 
 from .filters import ProductFilter
 from .forms import ProductForm
-from .models import Product, Appointment
+from practice_app.models import Product
 
 
 class ProductsList(ListView):

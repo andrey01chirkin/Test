@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, DeleteView
-)
-
+from django.views import View
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from .filters import ProductFilter
 from .forms import ProductForm
 from practice_app.models import Product
+from django.utils.translation import gettext as _
 
 
 class ProductsList(ListView):
@@ -25,6 +25,12 @@ class ProductsList(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
+
+
+class Test(View):
+    def get(self, request):
+        line = _('Hello world')
+        return HttpResponse(line)
 
 
 class ProductDetail(DetailView):

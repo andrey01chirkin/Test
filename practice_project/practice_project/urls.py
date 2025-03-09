@@ -9,4 +9,6 @@ urlpatterns = [
     path('email/', include('appointment_app.urls')),
     path('celery/', include('celery_app.urls')),
     path('product/', include('practice_app.urls')),
+
+    path('i18n/', include('django.conf.urls.i18n')), # подключаем встроенные эндопинты для работы с локализацией
 ]
